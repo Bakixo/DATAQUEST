@@ -1,0 +1,6 @@
+WDICountry.csv filter=lfs diff=lfs merge=lfs -text
+WDIcountry-series.csv filter=lfs diff=lfs merge=lfs -text
+WDIseries-time.csv filter=lfs diff=lfs merge=lfs -text
+WDISeries.csv filter=lfs diff=lfs merge=lfs -text
+WDICSV.csv filter=lfs diff=lfs merge=lfs -text
+WDIfootnote.csv filter=lfs diff=lfs merge=lfs -text
