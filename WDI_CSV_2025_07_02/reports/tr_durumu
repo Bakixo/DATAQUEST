@@ -1,0 +1,22 @@
+import pandas as pd
+df = pd.read_csv("data/processed/skv_v0.csv")
+
+# 2019–2023 ortalaması
+last5 = (df[df["Year"]>=2019]
+         .groupby(["Country Code","Country Name","Region","Income Group"], as_index=False)["SKV_v0"]
+         .mean())
+
+tr = last5[last5["Country Code"]=="TUR"]
+rank = last5["SKV_v0"].rank(ascending=False, method="min")
+tr_rank = int(rank[last5["Country Code"]=="TUR"])
+
+print("Türkiye SKV_v0 (2019–2023 ort):", float(tr["SKV_v0"]))
+print("Genel sıralama:", tr_rank, "/", len(last5))
+
+# Bölge ve gelir grubunda göreli konum
+reg = tr["Region"].item()
+inc = tr["Income Group"].item()
+r_in_group = last5[last5["Region"]==reg]["SKV_v0"].rank(ascending=False, method="min")
+i_in_group = last5[last5["Income Group"]==inc]["SKV_v0"].rank(ascending=False, method="min")
+print(f"Bölge ({reg}) sırası:", int(r_in_group[last5["Country Code"]=="TUR"]))
+print(f"Gelir grubu ({inc}) sırası:", int(i_in_group[last5["Country Code"]=="TUR"]))
